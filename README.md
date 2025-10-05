@@ -64,7 +64,7 @@ This portfolio represents a comprehensive solution for developers seeking to est
 
 ### Live Demo
 
-👉 [View Live Demo](https://your-portfolio-url.com) (Replace with your URL after deployment)
+👉 [View Live Demo](https://sangu-dev.github.io/Portfolio/)
 
 ### Screenshots
 
@@ -914,7 +914,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 **Design & Development:** Sangamesh  
 **Version:** 2.0  
-**Last Updated:** January 2025
+**Last Updated:** 2025
 
 **Built With:**
 - HTML5, CSS3, JavaScript (ES6+)
