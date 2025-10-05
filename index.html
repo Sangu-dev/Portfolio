@@ -33,7 +33,24 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#projects" class="nav-link">Projects</a>
         <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
         <a class="btn-outline" href="resume.pdf" download>Resume</a>
       </nav>
       <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
@@ -46,7 +63,7 @@
       <div>
         <div class="hero-badge">👋 Available for opportunities</div>
         <h1>Hi I'm <span class="name-highlight">Sangamesh</span></h1>
-        <p class="hero-subtitle">Full-Stack Developer & AIML Engineer specializing in building intelligent, scalable, and user-centric web applications.</p>
+        <p class="hero-subtitle"><span id="typed-text"></span><span class="cursor">|</span></p>
         <p style="color:var(--muted)">Passionate about creating innovative solutions using modern technologies. Currently pursuing BE in AI/ML and actively seeking opportunities to collaborate on impactful projects.</p>
         
         <!-- Social Links -->
@@ -118,9 +135,18 @@
     <section id="projects" class="fade-in-section">
       <h2>Featured Projects</h2>
       <p style="color:var(--muted);margin-top:8px;margin-bottom:18px">Here are some of my recent works. Each project showcases different skills and technologies.</p>
+      
+      <!-- Project Filters -->
+      <div class="project-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="ai-ml">AI/ML</button>
+        <button class="filter-btn" data-filter="web">Web Apps</button>
+        <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+      </div>
+      
       <div class="projects">
-        <article class="project">
-          <img src="images/ai.png" alt="Screenshot of AI Project">
+        <article class="project" data-category="ai-ml fullstack">
+          <img src="images/ai.png" alt="Screenshot of AI Project" loading="lazy">
           <div class="pd">
             <h3>AI-Powered Web App</h3>
             <p style="color:var(--muted);margin-top:8px">Machine learning model integrated with React frontend for intelligent predictions and data visualization.</p>
@@ -137,8 +163,8 @@
           </div>
         </article>
 
-        <article class="project">
-          <img src="images/ecom.png" alt="Screenshot of E-Commerce Project">
+        <article class="project" data-category="web fullstack">
+          <img src="images/ecom.png" alt="Screenshot of E-Commerce Project" loading="lazy">
           <div class="pd">
             <h3>E-Commerce Platform</h3>
             <p style="color:var(--muted);margin-top:8px">Full-stack e-commerce solution with payment integration, cart management, and admin dashboard.</p>
@@ -155,8 +181,8 @@
           </div>
         </article>
 
-        <article class="project">
-          <img src="images/folio.png" alt="Screenshot of Portfolio Builder">
+        <article class="project" data-category="web">
+          <img src="images/folio.png" alt="Screenshot of Portfolio Builder" loading="lazy">
           <div class="pd">
             <h3>Portfolio Builder</h3>
             <p style="color:var(--muted);margin-top:8px">Dynamic portfolio generator with customizable templates and drag-and-drop interface.</p>
@@ -233,6 +259,98 @@
             <div class="skill">Figma</div>
             <div class="skill">npm/yarn</div>
             <div class="skill">Postman</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION TIMELINE -->
+    <section id="experience" class="card fade-in-section">
+      <h2>Experience & Education</h2>
+      <p style="color:var(--muted);margin-top:8px;margin-bottom:28px">My journey in tech and learning path</p>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2022 - Present</div>
+            <h3 class="timeline-title">Bachelor of Engineering - AI/ML</h3>
+            <p class="timeline-subtitle">VTU</p>
+            <p class="timeline-description">Pursuing Bachelor's degree in Artificial Intelligence and Machine Learning, focusing on neural networks, deep learning, and practical AI applications.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2023 - 2024</div>
+            <h3 class="timeline-title">Freelance Full-Stack Developer</h3>
+            <p class="timeline-subtitle">Various Clients</p>
+            <p class="timeline-description">Developed custom web applications and e-commerce solutions for multiple clients, specializing in React and Node.js ecosystems.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2022 - 2023</div>
+            <h3 class="timeline-title">AI/ML learning phase</h3>
+            <p class="timeline-subtitle">Learning from tech mentors</p>
+            <p class="timeline-description">Learning to build machine learning models for predictive analytics and data processing pipelines using Python and TensorFlow.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2021 - 2022</div>
+            <h3 class="timeline-title">Started Coding Journey</h3>
+            <p class="timeline-subtitle">Self-taught</p>
+            <p class="timeline-description">Began learning web development through online courses and building personal projects. Discovered passion for both frontend and backend development.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="fade-in-section">
+      <h2>What People Say</h2>
+      <p style="color:var(--muted);margin-top:8px;margin-bottom:28px">Feedback from clients and colleagues</p>
+      
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Sangamesh delivered an exceptional e-commerce platform that exceeded our expectations. His attention to detail and technical expertise made the project a huge success.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ED</div>
+            <div>
+              <div class="author-name">Ed Sheeran</div>
+              <div class="author-role">CEO, TechStartup</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Working with Sangamesh was a pleasure. He has a unique ability to translate complex requirements into elegant, user-friendly solutions. Highly recommended!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SM</div>
+            <div>
+              <div class="author-name">Sarah Miller</div>
+              <div class="author-role">Product Manager</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Outstanding work on our AI-powered application. Sangamesh's knowledge of machine learning and web development is impressive. A true professional!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RK</div>
+            <div>
+              <div class="author-name">Raj Kumar</div>
+              <div class="author-role">Tech Lead</div>
+            </div>
           </div>
         </div>
       </div>

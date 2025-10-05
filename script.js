@@ -4,6 +4,55 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
+// Typing Effect
+const roles = [
+  'Full-Stack Developer',
+  'AIML Engineer',
+  'React Specialist',
+  'Problem Solver',
+  'Tech Enthusiast'
+];
+
+let roleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typedElement = null;
+
+function typeEffect() {
+  if (!typedElement) {
+    typedElement = document.getElementById('typed-text');
+    if (!typedElement) return;
+  }
+
+  const currentRole = roles[roleIndex];
+  
+  if (isDeleting) {
+    typedElement.textContent = currentRole.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    typedElement.textContent = currentRole.substring(0, charIndex + 1);
+    charIndex++;
+  }
+
+  let typeSpeed = isDeleting ? 50 : 100;
+
+  if (!isDeleting && charIndex === currentRole.length) {
+    typeSpeed = 2000; // Pause at end
+    isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    roleIndex = (roleIndex + 1) % roles.length;
+    typeSpeed = 500; // Pause before next word
+  }
+
+  setTimeout(typeEffect, typeSpeed);
+}
+
+// Start typing effect after a short delay
+setTimeout(() => {
+  typeEffect();
+}, 1000);
+
 // Floating Particles Animation
 const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
@@ -143,6 +192,62 @@ navLinks.forEach(link => {
   });
 });
 
+// Theme Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to 'dark'
+const currentTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', currentTheme);
+
+themeToggle.addEventListener('click', function() {
+  const theme = html.getAttribute('data-theme');
+  const newTheme = theme === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  // Update header immediately after theme change
+  updateHeaderBackground();
+  
+  // Add a little bounce animation
+  this.style.transform = 'scale(0.9)';
+  setTimeout(() => {
+    this.style.transform = 'scale(1)';
+  }, 150);
+});
+
+// Project Filters
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projects = document.querySelectorAll('.project');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    // Remove active class from all buttons
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    // Add active class to clicked button
+    this.classList.add('active');
+    
+    const filterValue = this.getAttribute('data-filter');
+    
+    projects.forEach(project => {
+      if (filterValue === 'all') {
+        project.classList.remove('hidden');
+        // Add animation
+        project.style.animation = 'fadeIn 0.5s ease-out';
+      } else {
+        const categories = project.getAttribute('data-category');
+        if (categories.includes(filterValue)) {
+          project.classList.remove('hidden');
+          project.style.animation = 'fadeIn 0.5s ease-out';
+        } else {
+          project.classList.add('hidden');
+        }
+      }
+    });
+  });
+});
+
 // Smooth scroll with offset for fixed header
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -185,18 +290,33 @@ fadeInSections.forEach(section => {
 const header = document.getElementById('header');
 let lastScroll = 0;
 
-window.addEventListener('scroll', () => {
+// Function to update header background based on scroll and theme
+function updateHeaderBackground() {
   const currentScroll = window.pageYOffset;
+  const currentTheme = html.getAttribute('data-theme');
   
   if (currentScroll > 50) {
-    header.style.background = 'rgba(7, 17, 38, 0.95)';
-    header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    if (currentTheme === 'light') {
+      header.style.background = 'rgba(255, 255, 255, 0.98)';
+      header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    } else {
+      header.style.background = 'rgba(7, 17, 38, 0.95)';
+      header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    }
   } else {
-    header.style.background = 'rgba(7, 17, 38, 0.85)';
-    header.style.boxShadow = 'none';
+    if (currentTheme === 'light') {
+      header.style.background = 'rgba(255, 255, 255, 0.95)';
+      header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+    } else {
+      header.style.background = 'rgba(7, 17, 38, 0.85)';
+      header.style.boxShadow = 'none';
+    }
   }
-  
-  lastScroll = currentScroll;
+}
+
+window.addEventListener('scroll', () => {
+  updateHeaderBackground();
+  lastScroll = window.pageYOffset;
 });
 
 // Contact form handler with improved feedback
@@ -302,8 +422,8 @@ scrollToTopBtn.addEventListener('click', () => {
 });
 
 // Add hover effect to project cards
-const projects = document.querySelectorAll('.project');
-projects.forEach(project => {
+const projectCards2 = document.querySelectorAll('.project');
+projectCards2.forEach(project => {
   project.addEventListener('mouseenter', function() {
     this.style.zIndex = '10';
   });
@@ -366,6 +486,72 @@ window.addEventListener('load', () => {
   });
 });
 
+// Custom Cursor Effect (Desktop only)
+if (window.innerWidth > 920) {
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+
+  const cursorFollower = document.createElement('div');
+  cursorFollower.className = 'cursor-follower';
+  document.body.appendChild(cursorFollower);
+
+  let mouseX = 0, mouseY = 0;
+  let followerX = 0, followerY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  // Smooth follower animation
+  function animateFollower() {
+    const distX = mouseX - followerX;
+    const distY = mouseY - followerY;
+    
+    followerX += distX * 0.1;
+    followerY += distY * 0.1;
+    
+    cursorFollower.style.left = followerX + 'px';
+    cursorFollower.style.top = followerY + 'px';
+    
+    requestAnimationFrame(animateFollower);
+  }
+  animateFollower();
+
+  // Expand cursor on interactive elements
+  const interactiveElements = document.querySelectorAll('a, button, .project, .skill, .badge');
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(1.5)';
+      cursorFollower.style.transform = 'scale(1.5)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursorFollower.style.transform = 'scale(1)';
+    });
+  });
+}
+
+// Add parallax effect to hero section
+const heroSectionParallax = document.querySelector('.hero');
+if (heroSectionParallax && window.innerWidth > 920) {
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxSpeed = 0.5;
+    heroSectionParallax.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+    heroSectionParallax.style.opacity = 1 - (scrolled / 600);
+  });
+}
+
+// Add stagger animation to project cards
+const projectCards = document.querySelectorAll('.project');
+projectCards.forEach((card, index) => {
+  card.style.animationDelay = `${index * 0.1}s`;
+});
+
 // Close mobile menu when clicking outside
 document.addEventListener('click', (e) => {
   if (nav.classList.contains('active')) {
@@ -398,14 +584,15 @@ function highlightNavOnScroll() {
 window.addEventListener('scroll', highlightNavOnScroll);
 
 // Smooth fade-in for hero section after loading
-const heroSection = document.querySelector('.hero');
-if (heroSection) {
-  heroSection.style.opacity = '0';
-  heroSection.style.transform = 'translateY(20px)';
+const heroSectionFade = document.querySelector('.hero');
+if (heroSectionFade) {
+  heroSectionFade.style.opacity = '0';
+  heroSectionFade.style.transform = 'translateY(20px)';
   
   setTimeout(() => {
-    heroSection.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-    heroSection.style.opacity = '1';
-    heroSection.style.transform = 'translateY(0)';
+    heroSectionFade.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+    heroSectionFade.style.opacity = '1';
+    heroSectionFade.style.transform = 'translateY(0)';
   }, 900);
 }
+
